@@ -1,0 +1,42 @@
+
+{
+  "variables":
+  {
+    "machine_type": "n1-standard-1",
+    "region" : "us-central1",
+    "zone": "us-central1-b",
+    "project_id":  "mynewproject-247215",
+    "account_file": "mynewproject-247215-c45dd8fc1e27.json"
+  },
+
+  "builders": 
+  [
+    {
+    "type": "googlecompute",
+    "project_id": "mynewproject-247215",
+    "machine_type": "n1-standard-1",
+    "source_image_family": "centos-7",
+    "region": "us-central1",
+    "zone": "us-central1-b",
+    "image_description": "Demo Instance Image",
+    "image_name": "centos7demonginx",
+    "disk_size": 16,
+    "disk_type" : "pd-ssd",
+    "ssh_username": "centos",
+    "account_file": "mynewproject-247215-c45dd8fc1e27.json"
+    }
+  ],
+
+  "provisioners":
+  [
+    {
+      "type": "shell",
+      "inline": "sudo yum install -y epel-release"
+    }, 
+    {
+      "type": "shell",
+      "inline": ["sudo yum install -y nginx","sudo systemctl enable nginx", "sudo systemctl start nginx"]
+    }
+  
+  ]
+}
